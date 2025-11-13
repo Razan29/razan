@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScoreActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:layout_marginTop="70dp"
+        android:text="YOUR SCORE"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/scorei"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="hello"
+        android:textSize="50dp" />
+
+    <TextView
+        android:id="@+id/gamesi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="hello"
+        android:textSize="50dp" />
+
+    <Button
+        android:id="@+id/backid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="back"
+        android:layout_marginTop="60dp"
+        android:textSize="40dp"/>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
