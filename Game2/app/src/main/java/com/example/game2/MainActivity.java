@@ -1,6 +1,7 @@
 package com.example.game2;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,9 +9,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,12 +22,50 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     private TextView t1,t2,t3,t4,t5,t6,t,s;
-    private Button st,n,score;
+    private Button st,n,score,exit;
     private int  count =0,x1,x2,x3,x4,x5,x6,count2=0;
     public static int countg=0,countA=0;
    private Handler  handler ;
+   private EditText etName;
    private Runnable runnable;
    private boolean isRunning = false;
+   private String name;
+   private AlertDialog dialog;
+   private void intDialog(){
+       AlertDialog.Builder alertDialog = new
+               AlertDialog.Builder(this);
+       alertDialog.setTitle("Exit");
+               alertDialog.setMessage("are you sure?");
+       alertDialog.setIcon(android.R.drawable.stat_sys_warning);
+       alertDialog.setCancelable(true);
+
+       alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface dialogInterface, int i) {
+              finish();
+              System.exit(0);
+               dialog.dismiss();
+           }
+       });
+       alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface dialogInterface, int i) {
+
+               dialog.dismiss();
+           }
+       });
+       alertDialog.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface dialogInterface, int i) {
+
+               dialog.dismiss();
+           }
+       });
+       dialog=alertDialog.create();
+   }
+
+
+
 
 
     @Override
@@ -42,9 +83,23 @@ public class MainActivity extends AppCompatActivity {
         s=findViewById(R.id.textView8);
         st=findViewById(R.id.button);
         n=findViewById(R.id.button2);
+        etName=findViewById(R.id.editText1);
+        exit=findViewById(R.id.exit1);
+        intDialog();
+
+
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.show();
+            }
+        });
 
         handler = new Handler(Looper.getMainLooper());
         Intent scoreAc= new Intent(MainActivity.this,ScoreActivity.class);
+
+
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -162,7 +217,10 @@ public class MainActivity extends AppCompatActivity {
         score.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                name=etName.getText().toString();
+                scoreAc.putExtra("Name", name);
                 startActivity(scoreAc);
+                finish();
             }
         });
 
