@@ -1,6 +1,6 @@
 package com.example.game2;
 
-import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,30 +12,46 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView t1,t2,t3,t4,t5,t6,t,s;
-    private Button st,n,score,exit;
+    private TextView t1,t2,t3,t4,t5,t6,t,s,tvname;
+    private Button st,n,score,exit,submit;
     private int  count =0,x1,x2,x3,x4,x5,x6,count2=0;
     public static int countg=0,countA=0;
    private Handler  handler ;
-   private EditText etName;
    private Runnable runnable;
    private boolean isRunning = false;
-   private String name;
+   private String name,name1,age1;
    private AlertDialog dialog;
+   private Dialog nameDialog;
+
+   private void buildName (){
+       nameDialog = new Dialog(this);
+       nameDialog.setContentView(R.layout.my_dialog);
+       EditText a=nameDialog.findViewById(R.id.ageid);
+       EditText na=nameDialog.findViewById(R.id.nameid);
+       Button ok=nameDialog.findViewById(R.id.bid);
+         ok.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 if(!(a.getText().toString().isEmpty()&&na.getText().toString().isEmpty())){
+                     name1=na.getText().toString();
+                     age1=a.getText().toString();
+                     tvname.setText(name1+"  "+age1);
+                     nameDialog.dismiss();
+                 }
+             }
+         });
+         nameDialog.show();
+   }
+
    private void intDialog(){
-       AlertDialog.Builder alertDialog = new
-               AlertDialog.Builder(this);
+       AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
        alertDialog.setTitle("Exit");
-               alertDialog.setMessage("are you sure?");
+       alertDialog.setMessage("are you sure?");
        alertDialog.setIcon(android.R.drawable.stat_sys_warning);
        alertDialog.setCancelable(true);
 
@@ -67,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,9 +98,12 @@ public class MainActivity extends AppCompatActivity {
         s=findViewById(R.id.textView8);
         st=findViewById(R.id.button);
         n=findViewById(R.id.button2);
-        etName=findViewById(R.id.editText1);
-        exit=findViewById(R.id.exit1);
+        exit=findViewById(R.id.exit2);
+        tvname = findViewById(R.id.nameid2);
         intDialog();
+        buildName();
+
+
 
 
 
@@ -163,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
                         isRunning = false;
                         handler.removeCallbacks(runnable);
                     }
-                    if (st.getText() == "Start") {
+                    if (st.getText().toString().equals("Start")) {
                         count2++;
                     }
 
@@ -217,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
         score.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                name=etName.getText().toString();
+                scoreAc.putExtra("SCORE",countA);
                 scoreAc.putExtra("Name", name);
                 startActivity(scoreAc);
                 finish();

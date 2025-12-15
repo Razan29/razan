@@ -31,8 +31,8 @@ public class ScoreActivity extends AppCompatActivity {
         score=findViewById(R.id.scorei);
         back=findViewById(R.id.backid);
         general.setText(name+", Your Score Is");
-        games.setText("games="+MainActivity.countg);
-        score.setText("score="+MainActivity.countA);
+        games.setText("Right answers ="+MainActivity.countg);
+        score.setText("Rounds ="+MainActivity.countA);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
